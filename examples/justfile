@@ -1,0 +1,16 @@
+default_image := "vcluster-sdk/stuff"
+
+# Build the Go binary
+build:
+    GOOS=linux GOARCH=amd64 go build -o stuff .
+
+# Clean up the binary
+clean:
+    rm -rf stuff
+
+# Build Docker image, using IMAGE if provided, else default_image
+docker-build image=default_image: build
+    docker build -t {{image}} .
+
+docker-push image=default_image:
+    docker push {{image}}
