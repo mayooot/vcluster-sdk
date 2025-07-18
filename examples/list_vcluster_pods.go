@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-
 	"github.com/mayooot/vcluster-sdk/pkg/connection"
 
 	"github.com/loft-sh/log"
@@ -13,6 +12,7 @@ import (
 )
 
 func main() {
+	// using in-cluster config
 	config, err := clientcmd.BuildConfigFromFlags("", clientcmd.RecommendedHomeFile)
 	if err != nil {
 		klog.Fatalf("Error building kubeconfig: %s", err.Error())
@@ -34,11 +34,13 @@ func main() {
 		klog.Fatalf("Error building vcluster clientset: %s", err.Error())
 	}
 
-	podList, err := vClient.CoreV1().Pods("vcluster-test").List(context.TODO(), v1.ListOptions{})
+	podList, err := vClient.CoreV1().Pods(v1.NamespaceAll).List(context.TODO(), v1.ListOptions{})
 	if err != nil {
 		klog.Fatalf("Error listing pods: %s", err.Error())
 	}
 	for _, pod := range podList.Items {
 		klog.Infof("Pod name: %s, namespace: %s", pod.Name, pod.Namespace)
 	}
+
+	select {}
 }
