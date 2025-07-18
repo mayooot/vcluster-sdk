@@ -55,7 +55,7 @@ func withInsecure() patcherOption {
 
 func withHost(vclusterName, vclusterNamespace string) patcherOption {
 	return func(config *rest.Config) {
-		config.Host = fmt.Sprintf("https://%s.%s.svc.cluster.local:8443", vclusterName, vclusterNamespace)
+		config.Host = fmt.Sprintf("https://%s.%s.svc.cluster.local:443", vclusterName, vclusterNamespace)
 	}
 }
 
