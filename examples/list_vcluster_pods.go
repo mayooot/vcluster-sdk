@@ -13,7 +13,7 @@ import (
 
 func main() {
 	// using in-cluster config
-	config, err := clientcmd.BuildConfigFromFlags("", clientcmd.RecommendedHomeFile)
+	config, err := clientcmd.BuildConfigFromFlags("", "")
 	if err != nil {
 		klog.Fatalf("Error building kubeconfig: %s", err.Error())
 	}
